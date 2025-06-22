@@ -9,7 +9,7 @@ import {FormsModule} from '@angular/forms';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule // Adicione se for usar ngModel em formulários
+    FormsModule 
   ],
   templateUrl: './heroi-list.html',
   styleUrls: ['./heroi-list.css']
@@ -18,9 +18,9 @@ export class HeroiListComponent implements OnInit {
   herois: HeroiResponse[] = [];
   errorMessage: string | null = null;
   isLoading: boolean = false;
-  selectedHeroi: HeroiResponse | null = null; // Para edição ou visualização detalhada
+  selectedHeroi: HeroiResponse | null = null; 
 
-  // Exemplo de objeto para novo herói (para formulário de criação)
+  
   newHeroi: HeroiRequest = {
     nome: '',
     nomeHeroi: '',
@@ -29,7 +29,7 @@ export class HeroiListComponent implements OnInit {
     altura: 0,
     peso: 0
   };
-  superpoderesInput: string = ''; // Para ajudar a adicionar IDs de superpoderes
+  superpoderesInput: string = ''; 
 
   constructor(private heroiService: HeroiService) { }
 
@@ -37,7 +37,7 @@ export class HeroiListComponent implements OnInit {
     this.carregarHerois();
   }
 
-  // --- Métodos de Carregamento/Exibição ---
+
 
   carregarHerois(): void {
     this.isLoading = true;
@@ -61,13 +61,11 @@ export class HeroiListComponent implements OnInit {
     });
   }
 
-  // --- Métodos para as Novas Operações ---
-
-  // Buscar Herói por ID
+  
   buscarHeroiPorId(id: number): void {
     this.isLoading = true;
     this.errorMessage = null;
-    this.selectedHeroi = null; // Limpa o herói selecionado anterior
+    this.selectedHeroi = null; 
 
     this.heroiService.getHeroiById(id).subscribe({
       next: (heroi) => {
@@ -83,11 +81,10 @@ export class HeroiListComponent implements OnInit {
     });
   }
 
-  // Preparar para Atualizar Herói (carrega os dados do herói selecionado no formulário)
+  
   editarHeroi(heroi: HeroiResponse): void {
-    // Cria uma cópia para não editar diretamente o objeto da lista
+    
     this.selectedHeroi = { ...heroi };
-    // Mapeia os superpoderes para IDs para o HeroiRequest (se for usar o mesmo form de criação)
     this.newHeroi = {
       id: heroi.id,
       nome: heroi.nome,
@@ -98,10 +95,8 @@ export class HeroiListComponent implements OnInit {
       superpoderesid: heroi.superpoderes.map(sp => sp.id)
     };
     this.superpoderesInput = heroi.superpoderes.map(sp => sp.id).join(',');
-    // Você pode querer abrir um modal ou rolar para um formulário de edição aqui
   }
 
-  // Salvar Atualização do Herói
   salvarEdicaoHeroi(): void {
     if (!this.newHeroi.id) {
       this.errorMessage = 'ID do herói para atualização não encontrado.';
@@ -111,7 +106,7 @@ export class HeroiListComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-    // Converte a string de IDs de superpoderes para number[]
+  
     this.newHeroi.superpoderesid = this.superpoderesInput
       .split(',')
       .map(id => parseInt(id.trim(), 10))
@@ -142,7 +137,7 @@ export class HeroiListComponent implements OnInit {
       this.heroiService.deletarHeroi(id).subscribe({
         next: () => {
           console.log(`Herói com ID ${id} deletado.`);
-          this.carregarHerois(); // Recarrega a lista
+          this.carregarHerois(); 
           this.isLoading = false;
         },
         error: (error) => {
@@ -154,7 +149,6 @@ export class HeroiListComponent implements OnInit {
     }
   }
 
-  // Helper para limpar o formulário
   resetNewHeroiForm(): void {
     this.newHeroi = {
       nome: '',
@@ -167,7 +161,6 @@ export class HeroiListComponent implements OnInit {
     this.superpoderesInput = '';
   }
 
-  // Função auxiliar para exibir superpoderes no formato desejado
   getSuperpoderesDisplay(superpoderes: Superpoder[]): string {
     return superpoderes.map(sp => `${sp.superpoder} (ID: ${sp.id})`).join(', ');
   }
