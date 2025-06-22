@@ -58,6 +58,6 @@ Interface Web funcional para:
 
 1. Clone o repositório
 2. Abra o projeto em sua IDE (IntelliJ ou VS Code)
-3. Configure o banco de dados(arquivo dele no repositorio)
+3. Configure o banco de dados(arquivo dele no repositorio, ja com alguns Herois para teste)
 4. Rode o projeto:
 
