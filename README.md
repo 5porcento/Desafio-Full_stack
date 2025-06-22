@@ -77,7 +77,9 @@ Com isso:
     Pude criar respostas mais amigáveis e personalizadas.
 
 O Mapper, por sua vez (classe NewMapper), foi o responsável por transformar as entidades nos DTOs de resposta e vice-versa, de forma simples e centralizada.
-Uso do Lombok ❤️
+
+
+###Uso do Lombok 
 
 Para agilizar o desenvolvimento e manter o código limpo e enxuto, fiz uso extensivo do Lombok, uma biblioteca que gosto bastante e que me ajuda a:
 
