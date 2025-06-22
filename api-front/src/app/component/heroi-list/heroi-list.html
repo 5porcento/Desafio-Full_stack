@@ -1,0 +1,61 @@
+<div>
+  <h2>Lista de Super-Heróis</h2>
+
+  <div *ngIf="isLoading" style="color: blue;">
+    Carregando super-heróis...
+  </div>
+
+  <div *ngIf="errorMessage" style="color: red;">
+    {{ errorMessage }}
+  </div>
+
+  <hr>
+
+  <ul *ngIf="herois.length > 0 && !isLoading">
+    <li *ngFor="let heroi of herois">
+      <h3>**{{ heroi.nomeHeroi }}** (ID: {{ heroi.id }})</h3>
+      <p>Nome: {{ heroi.nome }}</p>
+      <p>Data de Nascimento: {{ heroi.dataNascimento }}</p>
+      <p>Altura: {{ heroi.altura }}m, Peso: {{ heroi.peso }}kg</p>
+
+      <p>Superpoderes:</p>
+      <ul *ngIf="heroi.superpoderes && heroi.superpoderes.length > 0">
+        <li *ngFor="let poder of heroi.superpoderes">
+          {{ poder.superpoder }} (ID: {{ poder.id }}) - {{ poder.descricao }}
+        </li>
+      </ul>
+      <p *ngIf="!heroi.superpoderes || heroi.superpoderes.length === 0">
+        Nenhum superpoder cadastrado.
+      </p>
+
+      <div>
+        <button (click)="editarHeroi(heroi)">Editar</button>
+        <button (click)="deletarHeroi(heroi.id!)">Deletar</button>
+        <button (click)="buscarHeroiPorId(heroi.id!)">Ver Detalhes</button>
+      </div>
+      <hr>
+    </li>
+  </ul>
+
+  <div *ngIf="!isLoading && herois.length === 0 && !errorMessage">
+    Nenhum super-herói encontrado no momento.
+  </div>
+
+  <div *ngIf="selectedHeroi">
+    <h3>Detalhes do Herói Selecionado</h3>
+    <p><strong>ID:</strong> {{ selectedHeroi.id }}</p>
+    <p><strong>Nome:</strong> {{ selectedHeroi.nome }}</p>
+    <p><strong>Nome de Herói:</strong> {{ selectedHeroi.nomeHeroi }}</p>
+    <p><strong>Data de Nascimento:</strong> {{ selectedHeroi.dataNascimento }}</p>
+    <p><strong>Altura:</strong> {{ selectedHeroi.altura }}m</p>
+    <p><strong>Peso:</strong> {{ selectedHeroi.peso }}kg</p>
+    <p><strong>Superpoderes:</strong></p>
+    <ul>
+      <li *ngFor="let poder of selectedHeroi.superpoderes">
+        {{ poder.superpoder }} (ID: {{ poder.id }}) - {{ poder.descricao }}
+      </li>
+    </ul>
+    <button (click)="selectedHeroi = null">Fechar Detalhes</button>
+  </div>
+
+</div>
